@@ -5,10 +5,25 @@
 
 #include "orx.h"
 
+orxU64 SceneGUID;
+
 /** Update function, it has been registered to be called every tick of the core clock
  */
 void orxFASTCALL Update(const orxCLOCK_INFO *_pstClockInfo, void *_pContext)
 {
+    // Should reload?
+    if(orxInput_HasBeenActivated("Reload"))
+    {
+        // Delete current scene
+        orxObject_Delete(orxOBJECT(orxStructure_Get(SceneGUID)));
+
+        // Reload config
+        orxConfig_ReloadHistory();
+
+        // Create new scene
+        SceneGUID = orxStructure_GetGUID(orxObject_CreateFromConfig("Scene"));
+    }
+
     // Should quit?
     if(orxInput_IsActive("Quit"))
     {
@@ -30,7 +45,7 @@ orxSTATUS orxFASTCALL Init()
     orxViewport_CreateFromConfig("MainViewport");
 
     // Create the scene
-    orxObject_CreateFromConfig("Scene");
+    SceneGUID = orxStructure_GetGUID(orxObject_CreateFromConfig("Scene"));
 
     // Register the Update function to the core clock
     orxClock_Register(orxClock_Get(orxCLOCK_KZ_CORE), Update, orxNULL, orxMODULE_ID_MAIN, orxCLOCK_PRIORITY_NORMAL);
