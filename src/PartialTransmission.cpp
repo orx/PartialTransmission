@@ -41,9 +41,6 @@ orxSTATUS orxFASTCALL Init()
     "\n* You can play with the config parameters in ../data/config/PartialTransmission.ini"
     "\n* After changing them, relaunch the executable to see the changes.");
 
-    // Create the viewport
-    orxViewport_CreateFromConfig("MainViewport");
-
     // Create the scene
     SceneGUID = orxStructure_GetGUID(orxObject_CreateFromConfig("Scene"));
 
