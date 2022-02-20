@@ -66,7 +66,7 @@ orxSTATUS orxFASTCALL Run()
  */
 void orxFASTCALL Exit()
 {
-    // Let Orx clean all our mess automatically. :)
+    // Let orx clean all our mess automatically. :)
 }
 
 /** Bootstrap function, it is called before config is initialized, allowing for early resource storage definitions
